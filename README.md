@@ -25,6 +25,8 @@ Part1, Part2 강좌를 합쳐서 책으로 냈습니다.
 - 메인 룰: typescript는 최종적으로 javascript로 변환된다. 순전한 typescript 코드를 돌릴 수 있는 것은 deno이나 대중화되지가 않았음. 브라우저, 노드는 모두 js 파일을 실행한다.
 - typescript는 언어이자 컴파일러(tsc)이다. 컴파일러는 ts 코드를 js로 바꿔준다.
 - tsc는 tsconfig.json(tsc --init 시 생성)에 따라 ts 코드를 js(tsc 시 생성)로 바꿔준다. 인풋인 ts와 아웃풋인 js 모두에 영향을 끼치므로 tsconfig.json 설정을 반드시 봐야한다.
+- // tsc의 역할 - (ts code -> js code로 변환) + (타입 검사)
+- // .d.ts 해당 라이브러리 타입 정리해 둔 파일
 - 단순히 타입 검사만 하고싶다면 tsc --noEmit 하면 된다.
 - 개인 의견: tsconfig.json에서 그냥 esModuleInterop: true, strict: true 두 개만 주로 켜놓는 편. strict: true가 핵심임.
 - ts 파일을 실행하는 게 아니라 결과물인 js를 실행해야 한다.
@@ -32,6 +34,7 @@ Part1, Part2 강좌를 합쳐서 책으로 냈습니다.
 
 ## ts 문법
 - 기본적으로 변수, 속성, 매개변수, 리턴값에 타입이 붙었다고 생각하면 됨.
+- // 자바스크립트에 변수, 매개변수, 리턴값 세 개에만 타입 붙인 것
 ```typescript
 const a: number = 5;
 function add(x: number, y: number): number { return x + y }
@@ -43,6 +46,10 @@ const obj: { lat: number, lon: number } = { lat: 37.5, lon: 127.5 };
 const z: {} = 5;
 ```
 - ts가 추론해주는 타입이 있는데 이런 건 그냥 그대로 사용하면 됨. ts가 추론하지 못하는 경우에만 직접 타이핑할 것.
+- // 타입은 최대한 정확하게 적어줘야 함
+- // ex. const a: string = '5'; <- 이 경우 a const이기 때문에 '5'에서 변하지 않는데 string이라는 더 넓고, 부정확한 타입으로 만들어 버림(이럴 땐 그냥 추론 사용)
+- // ts가 추론을 잘못했을 경우, any 타입으로 추론한 경우에만 나서자
+- // 최대한 ts 추론을 믿자
 ```typescript
 const a = 5;
 const b = '3';
